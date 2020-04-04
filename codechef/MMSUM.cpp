@@ -1,36 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
+void solve() {
 	int n;
 	cin >> n;
-	int arr[n];
+	vector<long long> vec(n);
 	for (int i = 0; i < n; ++i) {
-		cin >> arr[i];
-	}
-	vector<int> sum(n, -1);
-	for (int i = 0; i < n; ++i) {
-		int local_sum = arr[i];
-		int mx = local_sum;
-		for (int j = i + 1; j < n; ++j) {
-			mx += arr[j];
-			if (mx >= local_sum) {
-				local_sum = mx;
-			}
-		}
-		sum[i] = local_sum;
+		cin >> vec[i];
 	}
 	
-	for (int i = 0; i < n; ++i) {
-		cout << sum[i] << " ";
+	long long best = -1e18;
+	long long current = 0;
+	for (int i = 0; i < n; i++) {
+		current = max(vec[i], (current + vec[i]));
+		best = max(current, best);
 	}
-	cout << endl;
-	int max = sum[0];
-	for (int i = 1; i < n; ++i) {
-		if (sum[i] > max) {
-			max = sum[i];
-		}
+	cout << best << endl;
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+		solve();
 	}
-	cout << max;
 	return 0;
 }
